@@ -24,4 +24,8 @@ hs_err_pid*
 
 # IntelliJ IDEA Files and Directories
 .idea/
+.build/
 *.iml
+
+# Gradle Settings Directory
+.gradle
