@@ -23,15 +23,14 @@ public class Recorder {
         int channels = 2;
         int frameSize = 4;
         int frameRate = 44100;
-        boolean bigEndian = true;
+        boolean bigEndian = false;
         return new AudioFormat(AudioFormat.Encoding.PCM_SIGNED,
                 sampleRate, sampleSizeInBits, channels, frameSize, frameRate, bigEndian);
     }
 
     public static void captureAudio() {
         try {
-            Mixer.Info[] mixerInfo =
-                    AudioSystem.getMixerInfo();
+            Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
             System.out.println("Available mixers:");
             for (Mixer.Info info : mixerInfo) {
                 System.out.println(info.getName());
@@ -46,7 +45,7 @@ public class Recorder {
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
 
         Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
-        Mixer mixer = AudioSystem.getMixer(mixerInfo[2]);
+        Mixer mixer = AudioSystem.getMixer(mixerInfo[0]);
 
         // checks if system supports the data line
         if (!AudioSystem.isLineSupported(info)) {
