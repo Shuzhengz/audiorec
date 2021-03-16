@@ -36,7 +36,6 @@ public class Application {
              */
 
             try {
-                System.out.println(Arrays.toString(UIManager.getInstalledLookAndFeels()));
                 for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                     if ("GTK+".equals(info.getName())) {
                         UIManager.setLookAndFeel(info.getClassName());
