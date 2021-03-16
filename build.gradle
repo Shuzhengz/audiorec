@@ -2,10 +2,10 @@ plugins {
     id 'java'
 }
 
-sourceCompatibility = JavaVersion.VERSION_15
-targetCompatibility = JavaVersion.VERSION_15
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
-group 'org.audioRec'
+group 'org.audiorec'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -15,7 +15,7 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-    implementation 'org.pushing-pixels:radiance-substance:3.5.1'
+    //implementation 'org.pushing-pixels:radiance-substance:3.5.1'
 }
 
 test {

@@ -24,8 +24,11 @@ hs_err_pid*
 
 # IntelliJ IDEA Files and Directories
 .idea/
-.build/
+build/
 *.iml
 
 # Gradle Settings Directory
 .gradle
+
+# Android Studio Properties
+*.properties

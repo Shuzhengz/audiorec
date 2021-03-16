@@ -4,6 +4,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Application {
 
@@ -24,10 +25,32 @@ public class Application {
 
     public void mainloop() {
         SwingUtilities.invokeLater(() -> {
+
+            /**
+             * Substance not supported in JDK 8
+             *try {
+             *    UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel");
+             *} catch (Exception e) {
+             *    e.printStackTrace();
+             *}
+             */
+
             try {
-                UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel");
-            } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(Arrays.toString(UIManager.getInstalledLookAndFeels()));
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("GTK+".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (UnsupportedLookAndFeelException e) {
+                // handle exception
+            } catch (ClassNotFoundException e) {
+                // handle exception
+            } catch (InstantiationException e) {
+                // handle exception
+            } catch (IllegalAccessException e) {
+                // handle exception
             }
 
             try {
@@ -38,7 +61,7 @@ public class Application {
         });
 
         while (!fileSelected) {
-            Thread.onSpinWait();
+            Thread.yield();
             fileSelected = Window.getFileSelected();
         }
 
@@ -47,7 +70,7 @@ public class Application {
         Recorder.captureAudio();
 
         while (!mRunning) {
-            Thread.onSpinWait();
+            Thread.yield();
             mRunning = Window.getRecStatus();
         }
 
@@ -68,7 +91,7 @@ public class Application {
         recordThread.start();
 
         while (mRunning) {
-            Thread.onSpinWait();
+            Thread.yield();
             mRunning = Window.getRecStatus();
         }
 
