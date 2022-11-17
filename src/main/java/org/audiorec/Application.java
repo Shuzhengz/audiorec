@@ -25,31 +25,34 @@ public class Application {
 
     public void mainloop() {
         SwingUtilities.invokeLater(() -> {
-
-            /**
-             * Substance not supported in JDK 8
-             *try {
-             *    UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel");
-             *} catch (Exception e) {
-             *    e.printStackTrace();
-             *}
-             */
-
             try {
-                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                    if ("GTK+".equals(info.getName())) {
-                        UIManager.setLookAndFeel(info.getClassName());
-                        break;
+                UIManager.setLookAndFeel("org.pushingpixels.substance.api.skin.SubstanceNightShadeLookAndFeel");
+            } catch (Exception e) {
+                e.printStackTrace();
+                try {
+                    for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                        if ("GTK+".equals(info.getName())) {
+                            UIManager.setLookAndFeel(info.getClassName());
+                            break;
+                        }
                     }
+                } catch (UnsupportedLookAndFeelException ee) {
+                    // handle exception
+                    System.out.println("UnsupportedLookAndFeelException");
+                    ee.printStackTrace();
+                } catch (ClassNotFoundException ee) {
+                    // handle exception
+                    System.out.println("ClassNotFoundException");
+                    ee.printStackTrace();
+                } catch (InstantiationException ee) {
+                    // handle exception
+                    System.out.println("InstantiationException");
+                    ee.printStackTrace();
+                } catch (IllegalAccessException ee) {
+                    // handle exception
+                    System.out.println("IllegalAccessException");
+                    ee.printStackTrace();
                 }
-            } catch (UnsupportedLookAndFeelException e) {
-                // handle exception
-            } catch (ClassNotFoundException e) {
-                // handle exception
-            } catch (InstantiationException e) {
-                // handle exception
-            } catch (IllegalAccessException e) {
-                // handle exception
             }
 
             try {
@@ -60,7 +63,7 @@ public class Application {
         });
 
         while (!fileSelected) {
-            Thread.yield();
+            Thread.onSpinWait();
             fileSelected = Window.getFileSelected();
         }
 
@@ -69,7 +72,7 @@ public class Application {
         Recorder.captureAudio();
 
         while (!mRunning) {
-            Thread.yield();
+            Thread.onSpinWait();
             mRunning = Window.getRecStatus();
         }
 
@@ -90,7 +93,7 @@ public class Application {
         recordThread.start();
 
         while (mRunning) {
-            Thread.yield();
+            Thread.onSpinWait();
             mRunning = Window.getRecStatus();
         }
 

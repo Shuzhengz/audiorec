@@ -9,6 +9,8 @@ import javax.sound.sampled.*;
 
 public class Recorder {
 
+    private static final int PORT = 2;
+
     private static final int BUFFER_SIZE = 4096;
     private ByteArrayOutputStream recordBytes;
     private TargetDataLine audioLine;
@@ -45,7 +47,7 @@ public class Recorder {
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
 
         Mixer.Info[] mixerInfo = AudioSystem.getMixerInfo();
-        Mixer mixer = AudioSystem.getMixer(mixerInfo[0]);
+        Mixer mixer = AudioSystem.getMixer(mixerInfo[PORT]);
 
         // checks if system supports the data line
         if (!AudioSystem.isLineSupported(info)) {
